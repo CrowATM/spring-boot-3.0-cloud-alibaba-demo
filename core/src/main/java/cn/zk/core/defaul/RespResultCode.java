@@ -1,4 +1,4 @@
-package cn.zk.oauth2.security.support;
+package cn.zk.core.defaul;
 
 import java.util.Arrays;
 
@@ -10,10 +10,10 @@ import java.util.Arrays;
  */
 public enum RespResultCode {
     /* 成功 */
-    SUCCESS(0, "成功"),
+    SUCCESS(200, "SUCCESS"),
 
     /* 默认失败 */
-    COMMON_FAIL(500, "失败"),
+    COMMON_FAIL(500, "FAIL"),
 
     /* 参数错误：1000～1999 */
 //    PARAM_NOT_VALID(1001, "参数无效"),

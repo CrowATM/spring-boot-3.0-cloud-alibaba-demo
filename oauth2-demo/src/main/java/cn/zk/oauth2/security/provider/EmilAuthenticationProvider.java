@@ -26,9 +26,7 @@ public class EmilAuthenticationProvider implements AuthenticationProvider {
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         String emil = authentication.getName();
-//        String code = authentication.getCredentials().toString();
         EmilCodeAuthenticationToken emilCodeAuthenticationToken = customLoginService.loadUserByEmil(emil);
-//        Object code = emilCodeAuthenticationToken.getCredentials();
         emilCodeAuthenticationToken.setDetails(authentication.getDetails());
         return emilCodeAuthenticationToken;
     }

@@ -21,14 +21,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.io.IOException;
 
-/**
+/** 登陆接口过滤器
  * @author ZK
  * @date 2024/1/18
  */
 public class CustomAuthenticationProcessingFilter extends AbstractAuthenticationProcessingFilter {
 
     private static final AntPathRequestMatcher DEFAULT_ANT_PATH_REQUEST_MATCHER
-            = new AntPathRequestMatcher("/login", "POST");
+            = new AntPathRequestMatcher("/auth/login", "POST");
 
     public CustomAuthenticationProcessingFilter(AuthenticationManager authenticationManager) {
         super(DEFAULT_ANT_PATH_REQUEST_MATCHER, authenticationManager);

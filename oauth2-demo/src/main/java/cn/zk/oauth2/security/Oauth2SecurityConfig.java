@@ -23,6 +23,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 
 
 import java.util.Collections;
@@ -70,6 +71,11 @@ public class Oauth2SecurityConfig {
 //                .and()
 //                .oauth2Login();
         return http.build();
+    }
+
+    @Bean
+    public CorsFilter corsFilter() {
+        return new CorsFilter(urlBasedCorsConfigurationSource());
     }
 
     // 配置跨域访问资源
