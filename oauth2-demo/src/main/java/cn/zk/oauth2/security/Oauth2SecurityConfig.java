@@ -1,6 +1,7 @@
 package cn.zk.oauth2.security;
 
 import cn.zk.oauth2.security.filter.CustomAuthenticationProcessingFilter;
+import cn.zk.oauth2.security.filter.CustomizeTokenAuthenticationFilter;
 import cn.zk.oauth2.security.handler.CustomizeAuthenticationFailureHandler;
 import cn.zk.oauth2.security.handler.CustomizeAuthenticationSuccessHandler;
 import cn.zk.oauth2.security.provider.EmilAuthenticationProvider;
@@ -63,13 +64,7 @@ public class Oauth2SecurityConfig {
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);//禁用session;
         http.addFilterAt(customAuthenticationProcessingFilter(), UsernamePasswordAuthenticationFilter.class);
-//        http
-//                .csrf().disable()
-//                .authorizeHttpRequests()
-//                .anyRequest()
-//                .authenticated()
-//                .and()
-//                .oauth2Login();
+        http.addFilterAfter(new CustomizeTokenAuthenticationFilter(), CustomAuthenticationProcessingFilter.class);
         return http.build();
     }
 

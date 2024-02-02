@@ -7,8 +7,6 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.oauth2.server.authorization.token.OAuth2RefreshTokenGenerator;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -21,13 +19,7 @@ import java.io.IOException;
 public class CustomizeTokenAuthenticationFilter extends OncePerRequestFilter {
 
     private static final AntPathRequestMatcher DEFAULT_ANT_PATH_REQUEST_MATCHER
-            = new AntPathRequestMatcher("/auth/check_token", "GET");
-
-//    private final AuthenticationManager authenticationManager;
-//
-//    public CustomizeTokenAuthenticationFilter(AuthenticationManager authenticationManager) {
-//        this.authenticationManager = authenticationManager;
-//    }
+            = new AntPathRequestMatcher("/auth/api/check_token", "GET");
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {

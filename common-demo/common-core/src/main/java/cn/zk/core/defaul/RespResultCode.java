@@ -15,10 +15,12 @@ public enum RespResultCode {
     /* 默认失败 */
     COMMON_FAIL(500, "FAIL"),
 
+    /* 内部错误 501 ~ 999 */
+
     /* 参数错误：1000～1999 */
 //    PARAM_NOT_VALID(1001, "参数无效"),
 //    PARAM_IS_BLANK(1002, "参数为空"),
-//    PARAM_TYPE_ERROR(1003, "参数类型错误"),
+    PARAM_TYPE_ERROR(1003, "参数校验错误"),
 //    PARAM_NOT_COMPLETE(1004, "参数缺失"),
 
     /* 用户错误 */
@@ -72,6 +74,18 @@ public enum RespResultCode {
                 .filter(e -> e.getCode().equals(code))
                 .findFirst()
                 .map(RespResultCode::getMessage)
-                .orElseThrow(() -> new IllegalArgumentException("无法通过返回码[" + code + "]获取解释!"));
+                .orElseThrow(() -> new IllegalArgumentException("无法通过[" + code + "]获取返回码解释!"));
+    }
+
+    /**
+     * 是否是成功
+     * @param code
+     * @return
+     */
+    public static boolean isSuccess(Integer code) {
+        if (code == null) {
+            throw new IllegalArgumentException("code can't be null!");
+        }
+        return code.equals(SUCCESS.code);
     }
 }

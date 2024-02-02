@@ -13,6 +13,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 @FeignClient("oauth2-demo")
 public interface CustomAuthService {
 
-    @GetMapping("/auth/api/checkToken")
+    @GetMapping("/auth/api/check_token")
     CustomRespBody<String> checkToken();
 }

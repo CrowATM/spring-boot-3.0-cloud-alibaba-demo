@@ -9,9 +9,10 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>oauth2-demo</module>
-        <module>core</module>
         <module>gateway-demo</module>
         <module>service-demo</module>
+        <module>service2-demo</module>
+        <module>common-demo</module>
     </modules>
     <packaging>pom</packaging>
     <properties>
@@ -26,6 +27,10 @@
 
         <commons-lang3.version>3.14.0</commons-lang3.version>
         <fastjson2.version>2.0.45</fastjson2.version>
+        <!--swagger与springboot3不兼容-->
+        <springfox-swagger2.version>3.0.0</springfox-swagger2.version>
+        <mybatis-plus.version>3.5.5</mybatis-plus.version>
+        <springdoc-openapi-starter-webflux.version>2.3.0</springdoc-openapi-starter-webflux.version>
     </properties>
 
     <dependencyManagement>

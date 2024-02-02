@@ -6,6 +6,7 @@ import cn.zk.gateway.api.CustomAuthService;
 import com.alibaba.fastjson2.JSON;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
@@ -51,22 +52,22 @@ public class AuthGlobalFilter implements GlobalFilter, Ordered {
             return chain.filter(exchange);
         }
         CompletableFuture<CustomRespBody<String>> future = CompletableFuture.supplyAsync(customAuthService::checkToken);
-        CustomRespBody<String> stringCustomRespBody = future.get(5000, TimeUnit.SECONDS);
-        int code = stringCustomRespBody.getCode();
-        if (code == 200) {
+        CustomRespBody<String> body = future.get(5000, TimeUnit.SECONDS);
+        if (RespResultCode.isSuccess(body.getCode())) {
             return chain.filter(exchange);
         }
         ServerHttpResponse response = exchange.getResponse();
         response.getHeaders().add("Content-Type", MediaType.APPLICATION_JSON_UTF8_VALUE);
-        final byte[] ws = JSON.toJSONString(
-                new CustomRespBody<String>(RespResultCode.COMMON_FAIL, null, "未登陆"))
-                .getBytes(StandardCharsets.UTF_8);
-        final DataBuffer wrap = response.bufferFactory().wrap(ws);
+        if (StringUtils.isBlank(body.getMessage())) {
+            body.setMessage("未登陆");
+        }
+        byte[] ws = JSON.toJSONString(body).getBytes(StandardCharsets.UTF_8);
+        DataBuffer wrap = response.bufferFactory().wrap(ws);
         return response.writeWith(Mono.just(wrap));
     }
 
     @Override
     public int getOrder() {
-        return Integer.MIN_VALUE;
+        return 0;
     }
 }

@@ -1,8 +1,6 @@
 server:
   port: 8101
 spring:
-  main:
-    allow-circular-references: true
   application:
     name: gateway-demo
   cloud:
